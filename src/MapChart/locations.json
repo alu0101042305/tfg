@@ -1,0 +1,279 @@
+{
+    "points": [
+        {
+            "name": "Tena Artigas-Sta Cruz de Tenerife",
+            "longitude": -16.27677966916967,
+            "latitude": 28.45556373854553
+        },
+        {
+            "name": "San Agustin",
+            "longitude": -15.54185614144673,
+            "latitude": 27.77260380263136
+        },
+        {
+            "name": "Casa Cuna",
+            "longitude": -16.27769219299203,
+            "latitude": 28.45103087995916
+        },
+        {
+            "name": "Polideportivo Afonso-Arucas",
+            "longitude": -15.52102570867989,
+            "latitude": 28.11129379489008
+        },
+        {
+            "name": "Deposito Tristan-Sta Cruz de TF",
+            "longitude": -16.27883500111764,
+            "latitude": 28.45812167288885
+        },
+        {
+            "name": "San Antonio-Breña Baja ",
+            "longitude": -17.77150206493699,
+            "latitude": 28.64526111111111
+        },
+        {
+            "name": "Vuelta Los Pajaros-Sta Cruz de TF",
+            "longitude": -16.27666944444444,
+            "latitude": 28.46199444444444
+        },
+        {
+            "name": "Casa Palacio-Puerto del Rosario",
+            "longitude": -13.86082868297363,
+            "latitude": 28.49838137113778
+        },
+        {
+            "name": "Barranco Hondo",
+            "longitude": -16.35811667769251,
+            "latitude": 28.39342430272525
+        },
+        {
+            "name": "Camping Temisas- Sta Lucia de T",
+            "longitude": -15.48868250741082,
+            "latitude": 27.89819013237949
+        },
+        {
+            "name": "Piscina Municipal-Sta Cruz de TF",
+            "longitude": -16.26359122651989,
+            "latitude": 28.4579297349033
+        },
+        {
+            "name": "Garcia Escamez-Sta Cruz de TF",
+            "longitude": -16.27200756109767,
+            "latitude": 28.45671762495153
+        },
+        {
+            "name": "Las Balsas-S. Andres y Sauces",
+            "longitude": -17.78255351378558,
+            "latitude": 28.8051035962478
+        },
+        {
+            "name": "Deposito La Guancha-Candelaria",
+            "longitude": -16.36818269341379,
+            "latitude": 28.38022004241302
+        },
+        {
+            "name": "Parque La Granja-Sta Cruz de TF",
+            "longitude": -16.26523392054247,
+            "latitude": 28.4629991567433
+        },
+        {
+            "name": "Tefia-Puerto del Rosario",
+            "longitude": -14.00470924218127,
+            "latitude": 28.52658853654827
+        },
+        {
+            "name": "Echedo-Valverde",
+            "longitude": -17.92164451237825,
+            "latitude": 27.83194945487353
+        },
+        {
+            "name": "Tio Pino-Sta Cruz de TF",
+            "longitude": -16.27020106951107,
+            "latitude": 28.45923433578016
+        },
+        {
+            "name": "Caletillas",
+            "longitude": -16.36193611111111,
+            "latitude": 28.37672185383916
+        },
+        {
+            "name": "El Charco-Pto del Rosario",
+            "longitude": -13.84897515633296,
+            "latitude": 28.5061558893775
+        },
+        {
+            "name": "Igueste",
+            "longitude": -16.37196944444445,
+            "latitude": 28.38054612236666
+        },
+        {
+            "name": "Las Caletas-Teguise",
+            "longitude": -13.51410361201795,
+            "latitude": 28.9830487356261
+        },
+        {
+            "name": "Bomberos",
+            "longitude": -16.260868078843,
+            "latitude": 28.45848944942761
+        },
+        {
+            "name": "Edificio Polivalente. El Charco.",
+            "longitude": -13.84810097377383,
+            "latitude": 28.50136523734968
+        },
+        {
+            "name": "Residencia Escolar-SS Gomera",
+            "longitude": -17.12042809341229,
+            "latitude": 28.09915985305408
+        },
+        {
+            "name": "Granadilla",
+            "longitude": -16.577575,
+            "latitude": 28.11249291149208
+        },
+        {
+            "name": "Buzanada",
+            "longitude": -16.65275204954566,
+            "latitude": 28.07264444444445
+        },
+        {
+            "name": "El Rio",
+            "longitude": -16.52369883386773,
+            "latitude": 28.14507452781689
+        },
+        {
+            "name": "Las Galanas-SS Gomera",
+            "longitude": -17.11797861577472,
+            "latitude": 28.09004288270705
+        },
+        {
+            "name": "Unelco - El Médano",
+            "longitude": -16.53603055555556,
+            "latitude": 28.04732410731866
+        },
+        {
+            "name": "Galletas",
+            "longitude": -16.65582222222222,
+            "latitude": 28.00778986189701
+        },
+        {
+            "name": "San Isidro",
+            "longitude": -16.55983699775095,
+            "latitude": 28.08003333333333
+        },
+        {
+            "name": "Tajao",
+            "longitude": -16.47161111111111,
+            "latitude": 28.11139253072193
+        },
+        {
+            "name": "Centro de Visitantes",
+            "longitude": -17.11443630661368,
+            "latitude": 28.0912184344878
+        },
+        {
+            "name": "San Nicolas",
+            "longitude": -15.42019944343149,
+            "latitude": 28.10250949824627
+        },
+        {
+            "name": "Jinamar fase 3",
+            "longitude": -15.41630026947429,
+            "latitude": 28.03513067331404
+        },
+        {
+            "name": "Lezcano",
+            "longitude": -15.41609151317158,
+            "latitude": 28.02989143147751
+        },
+        {
+            "name": "Centro de Arte",
+            "longitude": -13.85235585615808,
+            "latitude": 28.50038254969049
+        },
+        {
+            "name": "Unelco - Arrecife",
+            "longitude": -13.54756927031241,
+            "latitude": 28.97702844512853
+        },
+        {
+            "name": "El Pilar-Sta Cruz de La Palma",
+            "longitude": -17.76420300640655,
+            "latitude": 28.68583171818498
+        },
+        {
+            "name": "La Grama-Breña Alta",
+            "longitude": -17.77478904837233,
+            "latitude": 28.66735407014097
+        },
+        {
+            "name": "Unelco - Teguise",
+            "longitude": -13.51654138450124,
+            "latitude": 28.99031222013944
+        },
+        {
+            "name": "Nestor Alamo",
+            "longitude": -15.40934129226348,
+            "latitude": 28.02859559832505
+        },
+        {
+            "name": "Mercado Central",
+            "longitude": -15.43281446523007,
+            "latitude": 28.13376178810686
+        },
+        {
+            "name": "Tome Cano",
+            "longitude": -16.26186590969332,
+            "latitude": 28.46216889918384
+        },
+        {
+            "name": "Balsa de Zamora-Los Realejos",
+            "longitude": -16.57072474683533,
+            "latitude": 28.38313333333333
+        },
+        {
+            "name": "Parque de La Piedra",
+            "longitude": -13.85369826731914,
+            "latitude": 28.50284341138135
+        },
+        {
+            "name": "Parque de San Juan-Telde",
+            "longitude": -15.41187309637303,
+            "latitude": 28.00351848291567
+        },
+        {
+            "name": "La Hidalga-Arafo",
+            "longitude": -16.39991556609481,
+            "latitude": 28.33734903709636
+        },
+        {
+            "name": "Arinaga",
+            "longitude": -15.38682222222222,
+            "latitude": 27.86928758615687
+        },
+        {
+            "name": "La Loma-Telde",
+            "longitude": -15.41448410881176,
+            "latitude": 28.02619820482551
+        },
+        {
+            "name": "Unelco - Agüimes",
+            "longitude": -15.44494208775874,
+            "latitude": 27.89763333333333
+        },
+        {
+            "name": "Medio Ambiente - Arrecife",
+            "longitude": -13.55584560066863,
+            "latitude": 28.96788138724238
+        },
+        {
+            "name": "Castillo Romeral",
+            "longitude": -15.46114562364272,
+            "latitude": 27.80131863386952
+        },
+        {
+            "name": "Playa del Ingles",
+            "longitude": -15.56385616525365,
+            "latitude": 27.7636364237227
+        }
+    ]
+}

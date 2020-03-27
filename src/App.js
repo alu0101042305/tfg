@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import MapChart from './MapChart/MapChart';
+import {CssBaseline, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+import Bar from './Bar';
+import contaminantes from './assets/contaminantes'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#4682B4'
+    },
+    secondary: {
+      main: '#fff'
+    }
+  }
+})
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {contaminante: contaminantes.default}
+  }
+
+  onBarClick(contaminante) {
+    this.setState({contaminante: contaminante}) 
+  }
+
+  render() {
+    return (
+      <div className="root">
+        <MuiThemeProvider theme = { theme }>
+          <CssBaseline/>
+          <Bar onClick={this.onBarClick.bind(this)}/>
+          <MapChart contaminante={this.state.contaminante}/>
+        </MuiThemeProvider>
+      </div>
+    )
+  }
+
 }
 
 export default App;
