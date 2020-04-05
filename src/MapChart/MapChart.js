@@ -1,17 +1,26 @@
 import React from 'react'
 import * as d3 from "d3"
 import Loading from './../Loading'
+import { Grow } from '@material-ui/core';
+import card from './Card';
 
+// Localizaciones de las estaciones
 const locations = require('./locations.json').points
 
+/**
+ * Mapa de Canarias (unicolor) que muestra la última información disponible de la Red de aire de Canarias.
+ * El componente utiliza las mismas dimensiones que su padre.
+ * Las islas se renderizan sobre un canvas (para mejorar la optimización).
+ * Los cuadros con las medidas de los contaminantes se renderizan sobre un svg.
+ * @property {Contaminante} contaminante Contaminante a mostrar
+ */
 class MapChart extends React.Component {
 
     constructor(props) {
         super(props);
         this.ref = React.createRef()
         this.state = {
-            geojson_loading: false,
-            data_loading: false
+            loading_resources: 0
         }
 
         this.zoom = d3.zoom()
@@ -27,6 +36,7 @@ class MapChart extends React.Component {
         this.transform = {k: 1, x: 0, y: 0}
     }
 
+    // añade el canvas y el svg a this.node
     initDOM() {
         // Es importante añadir el SVG después del canvas,
         // porque los eventos de ratón se van a escuchar en el segundo
@@ -34,38 +44,44 @@ class MapChart extends React.Component {
         this.node.appendChild(this.svg.node())
     }
 
-    async loadGeo() {
+    // incrementa el número de recursos cargándose
+    incLoading() {
         this.setState((state) => ({
-            ...state,
-            geojson_loading: true
-        }))
-        this.geojson = await d3.json("/json/canary.json")
-        this.setState((state) => ({
-            ...state,
-            geojson_loading: false
+            loading_resources: state.loading_resources + 1
         }))
     }
 
-    async loadData() {
+    // decrementa el número de recursos cargándose
+    decLoading() {
         this.setState((state) => ({
-            ...state,
-            data_loading: true
+            loading_resources: state.loading_resources - 1
         }))
+    }
+
+    // carga json de Canarias
+    async loadGeo() {
+        this.incLoading()
+        this.geojson = await d3.json("/json/canary.json")
+        this.decLoading()
+    }
+
+    // carga los datos del contaminante
+    async loadData() {
+        this.incLoading()
         const values = await (await fetch('/' + this.props.contaminante.id) ).json()
         this.data = locations.map(e => ({
             point: this.projection([e.longitude, e.latitude]),
             value: values[e.name]
         }) ).filter(e => (e.value && e.value > -1))
-        this.setState((state) => ({
-            ...state,
-            data_loading: false
-        }))
+        this.decLoading()
     }
 
+    // evento que se dispara al ahcer click
     svgClick() {
         this.svg.transition().duration(750).call(this.zoom.transform, d3.zoomIdentity);
     }
 
+    // redimensiona el canvas
     resizeCanvas() {
         this.canvas
             .attr('height', this.height)
@@ -76,12 +92,14 @@ class MapChart extends React.Component {
         this.path(this.geojson)
     }
 
+    // redimensiona el svg
     resizeSVG() {
         this.svg
             .attr("width", this.width)
             .attr('height', this.height)
     }
 
+    // redimensiona el compoenente
     resize() {
         this.height = this.node.offsetHeight
         this.width = this.node.offsetWidth
@@ -90,6 +108,7 @@ class MapChart extends React.Component {
         this.resizeSVG()
     }
 
+    // actualiza los datos del mapa
     async setData() {
 
         await this.loadData()
@@ -97,37 +116,17 @@ class MapChart extends React.Component {
         this.rects = this.rects
             .data(this.data)
             .join('g')
-            .attr("stroke", "white")
-            .style("stroke-width", "1px")
-
-        const rectBounds = {w: 30, h: 20}
-        
-        var rect = this.rects.select('rect')
-        if(rect.empty()){
-            rect = this.rects.append('rect')
-        }
-        rect
-            .attr('x', -rectBounds.w / 2)
-            .attr('y', -rectBounds.h / 2)
-            .attr('height', rectBounds.h)
-            .attr('width', rectBounds.w)
-            .attr('fill', this.getColor.bind(this))
-        
-        var text = this.rects.select('text')
-        if(text.empty()){
-            text = this.rects.append('text')
-        }
-        text
-            .attr('x',  -rectBounds.w / 2)
-            .attr('y', rectBounds.h / 4)
-            .text(d => d.value.toString())
+            .call(card, this.props.contaminante)
     }
 
+    // establece un zoom al mapa
     setZoom(t = {k: 1, x: 0, y: 0}) {
         this.transform = t
         this.repaint()
     }
 
+    // inicia el componente (guarda la referencia del nodo del dom,
+    // carga el geojson de las islasy los datos, y actualiza el compoenente...)
     async componentDidMount() {
         this.node = this.ref.current
         this.initDOM()
@@ -137,33 +136,20 @@ class MapChart extends React.Component {
         this.repaint()
     }
 
+    // carga los nuevos datos si la prop "componente" ha cambiado
     async componentDidUpdate(prevProps) {
-        if(this.ref.current && this.ref.current != this.node) {
+        if(this.ref.current && this.ref.current !== this.node) {
             this.node = this.ref.current
             this.initDOM()
         }
-        if(prevProps.contaminante != this.props.contaminante) {
+        if(prevProps.contaminante !== this.props.contaminante) {
             await this.setData()
             this.repaintSVG()
         }
     }
 
-    getColor(data) {
-        const val = data.value
-        switch (true) {
-            case (val <= this.props.contaminante.range[0]):
-                return 'deepskyblue'
-            case (val <= this.props.contaminante.range[1]):
-                return 'mediumseagreen'
-            case (val <= this.props.contaminante.range[2]):
-                return 'coral'
-            case (val <= this.props.contaminante.range[3]):
-                return 'crimson'
-            default:
-                return 'purple'
-        }
-    }
-
+    // "repinta" el svg (realmente utiliza la propiedad this.transform
+    // para ajustar la posición de los cuadros)
     repaintSVG() {
         this.rects
             .attr('transform', d => `translate(
@@ -171,6 +157,7 @@ class MapChart extends React.Component {
                 ${d.point[1] * this.transform.k + this.transform.y})`)
     }
 
+    // repinta el canvas
     repaintCanvas() {
         this.context = this.canvas.node().getContext('2d')
         this.context.clearRect(0, 0, this.width, this.height)
@@ -181,16 +168,21 @@ class MapChart extends React.Component {
         this.context.fill(this.path2D)
     }
 
+    // repinta el compoenente
     repaint(){
         this.repaintCanvas()
         this.repaintSVG()
     }
 
     render() {
-        if(this.state.data_loading || this.state.geojson_loading) {
+        if(this.state.loading_resources > 0) {
             return <Loading/>
         } else  {
-            return <div ref={this.ref} className='map-chart'/>
+            return (
+                <Grow in={true}>
+                    <div ref={this.ref} className='map-chart'/>
+                </Grow>
+            )
         }
     }
 

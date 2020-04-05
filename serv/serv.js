@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const getData = require('./scrapData.js')
 
-app.use(express.static('public'));
+app.use(express.static('build'))
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/build/index.html');

@@ -3,6 +3,11 @@ const cheerio = require('cheerio')
 
 const {POST} = require('./post');
 
+/**
+ * Retorna los últimos datos proporcionados por la página del gobierno de Canarias
+ * @param {Number} contaminante ID del contaminante
+ * @return {Object} Objeto con las localizaciones como key y sus respectivos valores
+ */
 async function getData(contaminante) {
 
     var respond = await POST

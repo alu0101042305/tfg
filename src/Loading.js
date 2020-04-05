@@ -1,8 +1,10 @@
 import React from 'react'
 import {CircularProgress, Grid} from '@material-ui/core'
 
+/**
+ * Pantalla de carga
+ */
 class Loading extends React.Component {
-
 
     render(){
         return(
@@ -13,7 +15,7 @@ class Loading extends React.Component {
             alignItems="center"
             className="loading-screen"
             >
-                <CircularProgress color="secondary" size={400} thickness={0.5}/>
+                <CircularProgress color="secondary" size={200} thickness={0.5}/>
             </Grid>
         )
     }

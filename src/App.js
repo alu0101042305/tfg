@@ -4,6 +4,7 @@ import MapChart from './MapChart/MapChart';
 import {CssBaseline, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import Bar from './Bar';
 import contaminantes from './assets/contaminantes'
+import Wellcome from './Wellcome';
 
 const theme = createMuiTheme({
   palette: {
@@ -32,6 +33,7 @@ class App extends React.Component {
       <div className="root">
         <MuiThemeProvider theme = { theme }>
           <CssBaseline/>
+          <Wellcome/>
           <Bar onClick={this.onBarClick.bind(this)}/>
           <MapChart contaminante={this.state.contaminante}/>
         </MuiThemeProvider>

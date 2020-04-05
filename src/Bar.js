@@ -3,6 +3,10 @@ import {AppBar, Button, ButtonGroup, Grid, IconButton} from '@material-ui/core'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import contaminantes from './assets/contaminantes'
 
+/**
+ * Barra con todos los contaminantes
+ * @property {Function} onClick se llama cada vez que se pulsa un botó
+ */
 function Bar(props) {
 
     const [selected, setSelected] = React.useState(Math.floor(contaminantes.length / 2))

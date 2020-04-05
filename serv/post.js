@@ -14,12 +14,6 @@ function parse(data) {
   return result.slice(0, -1)
 }
 
-class Method {
-
-
-
-}
-
 const POST = {
 
   options: {
@@ -28,6 +22,9 @@ const POST = {
   },
 
   urlForm(data) {
+    if(typeof data != 'string') {
+      data = parse(data)
+    }
     this.data = data
     this.options.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     return this
@@ -37,6 +34,17 @@ const POST = {
     return request(url, this.data, this.options)
   }
 
+}
+
+const GET = {
+  options: {
+    method: 'GET',
+    headers: {}
+  },
+
+  from(url) {
+    return request(url, '', this.options)
+  }
 }
 
 function request(url, data, options) {
@@ -60,7 +68,6 @@ function request(url, data, options) {
   
   options.hostname = hostname
   options.path = path
-  data = parse(data) // ***
   options.headers['Content-Length'] = data.length
 
   body = []
@@ -73,8 +80,7 @@ function request(url, data, options) {
       })
 
       res.on('end', () => {
-        body = iconv.decode(Buffer.concat(body), 'ISO-8859-1')
-        res.body = body
+        res.body = iconv.decode(Buffer.concat(body), 'ISO-8859-1')
         if(res.statusCode == 200){
           accept(res)
         }
@@ -94,5 +100,5 @@ function request(url, data, options) {
   })
 }
 
-module.exports = {POST}
+module.exports = {POST, GET}
 

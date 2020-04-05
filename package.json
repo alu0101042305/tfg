@@ -12,6 +12,8 @@
     "cheerio": "^1.0.0-rc.3",
     "d3": "^5.15.0",
     "iconv-lite": "^0.5.1",
+    "influx": "^5.5.1",
+    "jsdom": "^16.2.2",
     "nodemon": "^2.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -22,7 +24,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "node serv/serv.js"
+    "db": "cd db/influx && influxd -config influxdb.conf",
+    "db:console": "cd db/influx && influx"
   },
   "eslintConfig": {
     "extends": "react-app"

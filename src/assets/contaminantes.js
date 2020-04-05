@@ -1,10 +1,11 @@
+// Array con los contaminantes disponibles en la aplicación
 const contaminantes = []
 
 function addCont(name, id, range) {
     contaminantes.push({
-        name: name,
-        id: id,
-        range: range
+        name,
+        id,
+        range
     })
 }
 
