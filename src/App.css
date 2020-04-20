@@ -6,7 +6,6 @@ body {
 
 .root {
   height: 100vh;
-  padding: 0.5%;
 }
 
 .map-chart > * {
@@ -20,4 +19,9 @@ body {
 
 .loading-screen {
   background-color: #4682B4;
+}
+
+.center {
+  flex:2;
+  padding: 0.5%;
 }

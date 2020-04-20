@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-import MapChart from './MapChart/MapChart';
-import {CssBaseline, createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+import {CssBaseline, createMuiTheme, MuiThemeProvider, Grid, Drawer} from '@material-ui/core';
 import Bar from './Bar';
 import contaminantes from './assets/contaminantes'
 import Wellcome from './Wellcome';
+import LineChart from './D3/LineChart/Component';
+import MapChart from './D3/MapChart/MapChartComp';
 
 const theme = createMuiTheme({
   palette: {
@@ -34,8 +35,14 @@ class App extends React.Component {
         <MuiThemeProvider theme = { theme }>
           <CssBaseline/>
           <Wellcome/>
-          <Bar onClick={this.onBarClick.bind(this)}/>
-          <MapChart contaminante={this.state.contaminante}/>
+          <Grid container direction="column" className='root'>
+            <Grid item>
+              <Bar onClick={this.onBarClick.bind(this)}/>
+            </Grid>
+            <Grid item className='center'>
+              <MapChart contaminante={this.state.contaminante}></MapChart>
+            </Grid>
+          </Grid>
         </MuiThemeProvider>
       </div>
     )

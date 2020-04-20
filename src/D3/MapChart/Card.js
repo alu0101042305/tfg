@@ -5,7 +5,7 @@
  * @param {Contaminante} contaminante 
  * @param {Object} rectBounds dimenciones del cuadro
  */
-function card(selection, contaminante, rectBounds = {w: 30, h: 20}) {
+export function card(selection, contaminante, rectBounds = {w: 30, h: 20}) {
         
     var rect = selection.select('rect')
     if(rect.empty()){
@@ -28,7 +28,7 @@ function card(selection, contaminante, rectBounds = {w: 30, h: 20}) {
         .attr("fill", "white")
         .text(d => d.value)
     
-    text.nodes().forEach(setTextBounds.bind(null, rectBounds))
+    //text.nodes().forEach(setTextBounds.bind(null, rectBounds))
 }
 
 /**
@@ -36,10 +36,12 @@ function card(selection, contaminante, rectBounds = {w: 30, h: 20}) {
  * @param {Object} rectBounds 
  * @param {Element} text 
  */
-function setTextBounds(rectBounds, text) {
-    const {width} = text.getBBox()
-    text.setAttribute('x', -width / 2)
-    text.setAttribute('y', rectBounds.h / 4)
+export function setTextBounds(texts, rectBounds = {w: 30, h: 20}) {
+    texts.nodes().forEach((text) => {
+      const {width} = text.getBBox()
+      text.setAttribute('x', -width / 2) 
+      text.setAttribute('y', rectBounds.h / 4)
+    })
 }
 
 /**
@@ -63,5 +65,3 @@ function getColor(data, contaminante) {
             return 'purple'
     }
 }
-
-export default card;
