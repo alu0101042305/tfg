@@ -1,4 +1,5 @@
 // Interfaz del objeto data que usa LineChart
+import {Contaminante} from '../../assets/Contaminante'
 
 export interface Point {
   date: Date,
@@ -6,8 +7,8 @@ export interface Point {
 }
 
 export interface Data {
-  contaminante: Object,
-  zone: string,
-  points: Point[]
+  contaminante: Contaminante,
+  zone?: string,
+  points: Point[][]
 }
 

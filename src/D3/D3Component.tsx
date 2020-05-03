@@ -1,6 +1,5 @@
 import React from 'react'
-import Loading from '../Loading'
-import {Grow} from '@material-ui/core'
+import Loading from './Loading'
 import D3Element from './D3Element';
 
 interface Props {
@@ -15,22 +14,31 @@ function D3Component(props: Props) {
   const d3 = props.d3;
   var isPainting = false
   var haveToPaint = false
-  var haveToResize = false
-  const [loading, setLoading] = React.useState([0])
+  const [haveToResize, setHaveToresize] = React.useState(false)
   const [i, set_i] = React.useState(0)
+  const [loading, setLoading] = React.useState([0])
   const ref = React.useRef(null)
 
-  function loadData() {
-    var j = i + 1
-    set_i(i => i + 1 )
+  function endLoad(n: number) {
+    setLoading((loading) => loading.filter(e => e != n))
+  }
+
+  function startLoad() {
+    const j = i + 1
+    set_i(j)
     setLoading((loading) => [...loading, j])
+    return j
+  }
+
+  function loadData() {
+    const n = startLoad()
     if(props.load_async) {
       props.load_async().then(() => {
-        setLoading((loading) => loading.filter( e => e != j))
+        endLoad(n)
       })
     } else if(props.load){
       props.load()
-      setLoading((loading) => loading.filter( e => e != j))
+      endLoad(n)
     }
   }
 
@@ -45,8 +53,7 @@ function D3Component(props: Props) {
   }
 
   function resize() {
-    haveToResize = true
-    repaint()
+    setHaveToresize(true)
   }
 
   function repaint() {
@@ -58,7 +65,7 @@ function D3Component(props: Props) {
     do {
       haveToPaint = false
       if(haveToResize) {
-        haveToResize = false
+        setHaveToresize(false)
         d3.resize(node.offsetWidth, node.offsetHeight)
       }
       d3.repaint()
@@ -80,16 +87,16 @@ function D3Component(props: Props) {
   React.useEffect(firstRender, [])
   React.useEffect(loadData, [props.load, props.load_async])
   React.useEffect(repaint, [loading])
-
+  React.useEffect(()=> {
+    if(haveToResize)
+      repaint()
+  }, [haveToResize])
+  
   if(isLoading()) {
     return <Loading/>
   } 
   else {
-    return (
-      <Grow in={true}>
-        <div ref={ref} className='map-chart'/>
-      </Grow>
-    )
+    return <div ref={ref} className='map-chart'/>
   }
 
 }

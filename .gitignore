@@ -10,7 +10,8 @@
 
 # production
 /build
-/db
+/db/data
+/db/influx
 
 # misc
 .DS_Store

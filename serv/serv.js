@@ -2,15 +2,12 @@ const express = require('express')
 const app = express()
 const Influx = require('influx');
 const getData = require('./scrapData.js')
+const bodyParser = require('body-parser')
 
-const influx = new Influx.InfluxDB({
-  host: 'localhost',
-  database: 'contaminantes',
-  user: 'client',
-  password: 'password' // el usuario 'client' solo tiene permisos de lectura
-});
+const influx = new Influx.InfluxDB('http://client:password@127.0.0.1:8086/contaminantes');
 
 app.use(express.static('build'))
+app.use(bodyParser.text())
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/build/index.html');
@@ -26,7 +23,19 @@ app.get('/*', async function(req, res) {
   }
 })
 
-app.post('/consult', function(req, res){
+app.post('/consult', async function(req, res){
+  try {
+    const consult = await influx.query(req.body)
+    console.log(consult)
+    res.send(JSON.stringify({
+      data: consult,
+      groups: consult.groupRows
+    }))
+  } catch(error) {
+    console.log(error)
+    console.log(req.body)
+    res.send('{}')
+  }
   
 })
 

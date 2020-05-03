@@ -3,7 +3,7 @@ import React from 'react'
 import {Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button} from '@material-ui/core'
 
 /**
- * Mensaje de bienvenida que usa cookies para solo salir 1 vez
+ * Mensaje de bienvenida que usa cookies para solo visualizarse la priemra vez
  */
 function Wellcome() {
     

@@ -1,7 +1,10 @@
 import React from 'react';
-import {AppBar, Button, ButtonGroup, Grid, IconButton} from '@material-ui/core'
+import {AppBar, Button, ButtonGroup, Grid, IconButton, Tab, Tabs} from '@material-ui/core'
 import GitHubIcon from '@material-ui/icons/GitHub';
-import contaminantes from './assets/contaminantes'
+import MapIcon from '@material-ui/icons/Map';
+import TimelineIcon from '@material-ui/icons/Timeline';
+
+const github_url = 'https://github.com/alu0101042305/tfg'
 
 /**
  * Barra con todos los contaminantes
@@ -9,47 +12,43 @@ import contaminantes from './assets/contaminantes'
  */
 function Bar(props) {
 
-  const [selected, setSelected] = React.useState(Math.floor(contaminantes.length / 2))
 
-  function onClick(i){
-    setSelected(i)
-    if(props.onClick)
-      props.onClick(contaminantes[i])
+  const [value, setValue] = React.useState(0)
+
+  function handleChange(event, newValue) {
+    props.onClick(newValue)
+    setValue(newValue)
   }
 
   return (
-    <AppBar position='static'>
-      <Grid
-      container
-      direction="row"
-      justify="space-between"
-      alignItems="center"
-      >
+    <AppBar position="static">
+      <Grid container justify="space-between" >
+
         <Grid item/>
-          
+
         <Grid item>
-        <ButtonGroup variant="text" color="secondary" aria-label="text primary button group">
-          {
-            contaminantes.map((e, i) => (
-              <Button 
-              key={i} 
-              variant={ (selected === i) ? 'contained' : null }
-              onClick={onClick.bind(this, i)}>
-                {e.display_name}
-              </Button>
-            ))
-          }
-        </ButtonGroup>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant="scrollable"
+            scrollButtons="off"
+            aria-label="scrollable prevent tabs example"
+            >
+            <Tab icon={<MapIcon />} aria-label="phone" />
+            <Tab icon={<TimelineIcon />} aria-label="favorite" />
+          </Tabs>
         </Grid>
-            
+
         <Grid item>
-          <IconButton color='inherit' href='https://github.com/alu0101042305/tfg' target="_blank">
+          <IconButton color='inherit' href={github_url} target="_blank">
             <GitHubIcon/>
           </IconButton>
         </Grid>
-    </Grid>
+
+      </Grid>
     </AppBar>
   )
+
 }
 
 export default Bar;

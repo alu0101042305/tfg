@@ -2,6 +2,9 @@ import * as d3 from 'd3'
 import D3Element from "../D3Element";
 import {card, setTextBounds} from './Card'
 import {Data, Point} from './Types'
+import {Fabricas, Fabrica} from '../../assets/Fabrica'
+
+const FACTORY_WIDTH = 30
 
 class MapChart implements D3Element{
 
@@ -15,13 +18,17 @@ class MapChart implements D3Element{
   path = d3.geoPath()
   canvas = d3.create('canvas')
   svg = d3.create('svg')
+    .style('cursor', 'grab')
     .on('click', this.svgClick.bind(this))
     .call(this.zoom)
+  factories = this.svg.append('g')
   rects = this.svg.append('g').selectAll('rect')
   transform = {k: 1, x: 0, y: 0}
   path2D: Path2D
   data: Data
   originalPoints: [number, number][]
+  onMouseEnterFabric: (f: Fabrica, e: any) => void
+  onMouseLeaveFabric: () => void
   
   // añade el canvas y el svg a node
   setParent(node: HTMLElement) {
@@ -79,6 +86,14 @@ class MapChart implements D3Element{
       .data(this.data.points)
       .join('g')
       .call(card as any, data.contaminante)
+      .on('click', d => {
+        d3.event.stopPropagation()
+        const k = 64
+        this.svg.transition().duration(750).call(this.zoom.transform, d3.zoomIdentity
+          .translate(- d.pos[0] * k + this.width / 2, - d.pos[1] * k + this.height / 2)
+          .scale(k))
+      })
+      .style('cursor', 'pointer')
   }
 
   // establece un zoom al mapa
@@ -94,6 +109,24 @@ class MapChart implements D3Element{
       .attr('transform', (d: Point) => `translate(
         ${d.pos[0] * this.transform.k + this.transform.x},
         ${d.pos[1] * this.transform.k + this.transform.y})`)
+
+    const fabricas = Fabricas.map(e => ({
+      ...e,
+      pos: this.projection([e.location.longitude, e.location.latitude])
+    }))
+    this.factories.selectAll('image')
+      .data(fabricas)
+      .join('image')
+      .attr('href', 'img/factory.png')
+      .attr('width', FACTORY_WIDTH)
+      .attr('height', FACTORY_WIDTH)
+      .attr('x', d => d.pos[0] * this.transform.k + this.transform.x - FACTORY_WIDTH / 2)
+      .attr('y', d => d.pos[1] * this.transform.k + this.transform.y - FACTORY_WIDTH / 2)
+      .style('cursor', 'default')
+      .on('mouseenter', d => {
+        this.onMouseEnterFabric(d, d3.event)
+      })
+      .on('mouseleave', this.onMouseLeaveFabric)
   }
 
   // repinta el canvas

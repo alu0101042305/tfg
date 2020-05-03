@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import {CssBaseline, createMuiTheme, MuiThemeProvider, Grid, Drawer} from '@material-ui/core';
+import {CssBaseline, createMuiTheme, MuiThemeProvider, Grid} from '@material-ui/core';
 import Bar from './Bar';
-import contaminantes from './assets/contaminantes'
 import Wellcome from './Wellcome';
-import LineChart from './D3/LineChart/Component';
-import MapChart from './D3/MapChart/MapChartComp';
+import LineChartController from './LineChartController'
+import MapChartController from './MapChartController'
+import {Contaminantes} from './assets/Contaminante'
 
 const theme = createMuiTheme({
   palette: {
@@ -22,30 +22,36 @@ class App extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {contaminante: contaminantes.default}
+    this.state = {index: 0}
   }
 
-  onBarClick(contaminante) {
-    this.setState({contaminante: contaminante}) 
+  onBarClick(index) {
+    this.setState({
+      index
+    }) 
   }
 
   render() {
     return (
-      <div className="root">
-        <MuiThemeProvider theme = { theme }>
-          <CssBaseline/>
-          <Wellcome/>
-          <Grid container direction="column" className='root'>
-            <Grid item>
-              <Bar onClick={this.onBarClick.bind(this)}/>
-            </Grid>
-            <Grid item className='center'>
-              <MapChart contaminante={this.state.contaminante}></MapChart>
-            </Grid>
+      <MuiThemeProvider theme = { theme }>
+        <CssBaseline/>
+        <Wellcome/>
+        <Grid container direction="column" className='maxH'>
+          <Grid item>
+            <Bar onClick={this.onBarClick.bind(this)}/>
           </Grid>
-        </MuiThemeProvider>
-      </div>
+          <Grid item className='center'>
+            <div className='maxH' hidden={this.state.index !== 0}>
+              <MapChartController/>
+            </div>
+            <div className='maxH' hidden={this.state.index !== 1}>
+              <LineChartController/>
+            </div>
+          </Grid>
+        </Grid>
+      </MuiThemeProvider>
     )
+    // <LineChart contaminante={this.state.contaminante} start_date={date1} end_date={date2}></LineChart>
   }
 
 }
