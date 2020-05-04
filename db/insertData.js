@@ -5,15 +5,13 @@ const XLSX = require('xlsx')
 
 const influx = new Influx.InfluxDB(`http://admin:${process.env.ADMIN_PASSWORD}@127.0.0.1:8086/contaminantes`);
 
-const dir = './data'
-
-fs.readdirSync(dir).forEach(file => {
-  parse(dir + '/' + file)
-})
+parse(process.argv[2])
 
 function parse(file) {
+  console.log(`Parsing ${file}`)
   const workbook = XLSX.readFile(file)
   workbook.SheetNames.slice(1).forEach(sheetName => {
+    console.log(`Parsing ${sheetName}`)
     const points = []
     const sheet = workbook.Sheets[sheetName]
     const csv = XLSX.utils.sheet_to_csv(sheet).split('\n').map(row => row.split(','))
