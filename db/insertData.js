@@ -15,7 +15,8 @@ function parse(file) {
     const points = []
     const sheet = workbook.Sheets[sheetName]
     const csv = XLSX.utils.sheet_to_csv(sheet).split('\n').map(row => row.split(','))
-    const zone = csv[0][0].trim()
+    var zone = csv[0][0].trim()
+    zone = zone || sheetName
     const measurements = csv[1].slice(2).filter(Boolean).map(s => /[^\s]+/.exec(s)[0])
     csv.slice(2).forEach(row => {
       var [day, month, year] = row.shift().split('/').map(Number)
@@ -36,6 +37,9 @@ function parse(file) {
     })
     influx.writePoints(points, {
       precision: 'h'
+    }).catch(err => {
+      const mess = err.message
+      console.log(mess ? mess : err)
     })
   })
 }
