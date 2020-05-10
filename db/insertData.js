@@ -44,7 +44,7 @@ function parseRows(rows, measurements, zone){
   console.log(`Parsing ${zone}`)
   const points = []
   rows.forEach(row => {
-    var [day, month, year] = row.shift().split('/').map(Number)
+    var [month, day, year] = row.shift().split('/').map(Number)
     const hour = Number(row.shift())
     if(!day) return;
     year += (year < 2000 ? 2000 : 0)

@@ -26,7 +26,6 @@ app.get('/*', async function(req, res) {
 app.post('/consult', async function(req, res){
   try {
     const consult = await influx.query(req.body)
-    console.log(consult)
     res.send(JSON.stringify({
       data: consult,
       groups: consult.groupRows
