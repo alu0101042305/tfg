@@ -3,7 +3,6 @@ import {Grid, Select, MenuItem, InputLabel, TextField, InputAdornment, Button, C
 import LineChart from './D3/LineChart/Component'
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
 import {Contaminante, Contaminantes} from './assets/Contaminante'
-import DateFnsUtils from '@date-io/date-fns';
 import SelectZonesDialog from './SelectZonesDialog'
 import LineChartD3 from './D3/LineChart/LineChart'
 
@@ -37,82 +36,79 @@ function LineChartController() {
 
   return (
     <Grid container className='maxH'>
-      <Grid item xs={2} className='maxH'>
-        <Paper style={{overflow: 'auto'}}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Grid item xs={2} className='maxH' >
 
-            <KeyboardDatePicker
-              label="Fecha inicial"
-              format="dd/MM/yyyy"
-              value={startDate}
-              onChange={onStartChange}
-              minDate={MIN_DATE}
-              maxDate={endDate}
-              minDateMessage={"Los datos comienzan en el año 2004"}
-              maxDateMessage={"La fecha inicial debe ser menor que la final"}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
+          <Grid container direction='column' spacing={1}>
+            <Grid item>
+              <KeyboardDatePicker
+                label="Fecha inicial"
+                format="dd/MM/yyyy"
+                value={startDate}
+                onChange={onStartChange}
+                minDate={MIN_DATE}
+                maxDate={endDate}
+                minDateMessage={"Los datos comienzan en el año 2004"}
+                maxDateMessage={"La fecha inicial debe ser menor que la final"}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+            </Grid>
+
+            <Grid item>
+              <KeyboardDatePicker
+                label="Fecha final"
+                format="dd/MM/yyyy"
+                value={endDate}
+                onChange={onEndChange}
+                minDate={startDate}
+                maxDate={MAX_DATE}
+                minDateMessage={"La fecha final debe ser mayor que la inicial"}
+                maxDateMessage={"Los datos terminan en el año 2018"}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+            </Grid>
+
+            <Grid item>
+              <InputLabel id="select-label">Contaminente</InputLabel>
+              <Select
+                labelId='select-label'
+                value={index}
+                onChange={onSelectChange}>
+                {
+                  Contaminantes.map((e: Contaminante, i) => (
+                    <MenuItem value={i} key={i}>{e.display_name}</MenuItem>
+                  ))
+                }
+              </Select>
+            </Grid>
+
+            <Grid item>
+              <TextField
+              label="Group by"
+              type='number'
+              InputProps={{
+                endAdornment: <InputAdornment position="end">h</InputAdornment>,
               }}
-            />
-
-            
-
-            <KeyboardDatePicker
-              label="Fecha final"
-              format="dd/MM/yyyy"
-              value={endDate}
-              onChange={onEndChange}
-              minDate={startDate}
-              maxDate={MAX_DATE}
-              minDateMessage={"La fecha final debe ser mayor que la inicial"}
-              maxDateMessage={"Los datos terminan en el año 2018"}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
+              value={hour}
+              onChange={(e) => {
+                const num = Number(e.target.value)
+                if(num > 0) {
+                  setHour(num)
+                }
               }}
-            />
-
-          </MuiPickersUtilsProvider>
-
-
-            <InputLabel id="select-label">Contaminente</InputLabel>
-            <Select
-              labelId='select-label'
-              value={index}
-              onChange={onSelectChange}>
-              {
-                Contaminantes.map((e: Contaminante, i) => (
-                  <MenuItem value={i} key={i}>{e.display_name}</MenuItem>
-                ))
-              }
-            </Select>
-
-
-
-            <TextField
-            label="Group by"
-            type='number'
-            InputProps={{
-              endAdornment: <InputAdornment position="end">h</InputAdornment>,
-            }}
-            value={hour}
-            onChange={(e) => {
-              const num = Number(e.target.value)
-              if(num > 0) {
-                setHour(num)
-              }
-            }}
           />
+            </Grid>
+            
+            <Grid item>
+              <Button color='primary' variant='outlined' onClick={setOpen.bind(null, true)}>
+                Selecciona las zonas
+              </Button>
+            </Grid>
 
-
-
-            <SelectZonesDialog setZones={setZones} open={open} handleClose={setOpen.bind(null, false)} 
-              contaminante={Contaminantes[index]}/>
-            <Button color='primary' variant='outlined' onClick={setOpen.bind(null, true)}>
-              Selecciona las zonas
-            </Button>
-
-
-
+            <Grid item>
               {
                 zones.map((zone, i) => (
                   <Box m={0.25} key={i}>
@@ -126,9 +122,12 @@ function LineChartController() {
                   </Box>
                 ) )
               }
-
-        </Paper>
+            </Grid>
+          </Grid>
       </Grid>
+
+      <SelectZonesDialog setZones={setZones} open={open} handleClose={setOpen.bind(null, false)} 
+              contaminante={Contaminantes[index]}/>
       
       <Grid item className='maxH grow'>
         <LineChart start_date={startDate} end_date={endDate} contaminante={Contaminantes[index]} 

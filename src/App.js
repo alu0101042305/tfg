@@ -40,7 +40,7 @@ class App extends React.Component {
           <Grid item>
             <Bar onClick={this.onBarClick.bind(this)}/>
           </Grid>
-          <Grid item className='center'>
+          <Grid item className='center' style={{overflow: 'auto'}}>
             <div className='maxH' hidden={this.state.index !== 0}>
               <MapChartController/>
             </div>

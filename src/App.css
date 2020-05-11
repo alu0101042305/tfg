@@ -8,13 +8,6 @@ body {
   height: 100vh;
 }
 
-.dashboard {
-  overflow: auto;
-  max-height:50%;
-}
-
-
-
 .map-chart > * {
   position: absolute;
   cursor: default;

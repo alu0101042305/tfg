@@ -3,9 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {MuiPickersUtilsProvider} from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns';
+
+const app = (
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <App />
+  </MuiPickersUtilsProvider>
+)
 
 ReactDOM.render(
-  <App />,
+  app,
   document.getElementById('root')
 );
 
