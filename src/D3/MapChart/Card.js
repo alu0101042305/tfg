@@ -6,16 +6,12 @@
  * @param {Object} rectBounds dimenciones del cuadro
  */
 export function card(selection, contaminante, rectBounds = {w: 30, h: 20}) {
-        
-    var rect = selection.select('rect')
+    var rect = selection.select('circle')
     if(rect.empty()){
-        rect = selection.append('rect')
+        rect = selection.append('circle')
     }
     rect
-        .attr('x', -rectBounds.w / 2)
-        .attr('y', -rectBounds.h / 2)
-        .attr('height', rectBounds.h)
-        .attr('width', rectBounds.w)
+        .attr('r', 10)
         .attr("stroke", "white")
         .style("stroke-width", "1px")
         .attr('fill', d => getColor(d, contaminante))

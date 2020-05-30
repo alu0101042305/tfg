@@ -9,19 +9,15 @@ function Name(fixedName) {
   }
 }
 
-Name('Refinería')('Refineria', 'Puerta Principal-Refinería', 'Puerta Litoral-Refinería', 'Torre Meteorológica Refinería')
+Name('Refinería')('Refineria')
 Name('Playa del Inglés')('Playa del Ingles', 'Playa ingles')
-Name('Parque San Juan-Telde')('Parque San Juan-Telde')
-Name('Médano')('Medano')
 Name('Néstor Álamo')('Nestor Alamo')
 Name('Mercatenerife')('Mercado Central', 'Merca Tenerife')
-Name('Jinámar 3')('Jinamar Fase 3', 'Jinámar fase 3', 'Jinamar 3')
-Name('Jinámar')('Jinamar', 'Torre Meteorológica Jinámar')
+Name('Jinámar')('Jinamar', 'Torre Meteorológica Jinámar', 'Jinamar Fase 3', 'Jinámar fase 3', 'Jinamar 3', 'Jinámar 3')
 Name('El Río')('El rio')
 Name('El Charco-Pto del Rosario')('El Charco-Puerto del Rosario')
 Name('Camping Temisas-Sta Lucía de T.')('Camping Temisas-Sta Lucía de T', 'Camping Temisas-Sta Lucia T.')
-Name('Igueste')('Igueste Sanidad')
-Name('Igueste 2')('igueste2', 'Igueste2')
+Name('Igueste')('Igueste Sanidad', 'Igueste 2', 'Igueste2', 'igueste2')
 Name('Granadilla')('Torre Meteorológica Granadilla')
 Name('Médano')('Medano')
 Name('San Isidro')('S.Isidro')

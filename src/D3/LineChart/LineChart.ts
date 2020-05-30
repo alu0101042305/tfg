@@ -24,6 +24,7 @@ class LineChart implements D3Element {
   yAxis = this.svg.append('g')
   line = this.svg.append('path')
   lines = this.svg.append('g')
+  circles = this.svg.append('g')
     
   lineGenerator = d3.line<Point>()
     .x((d) => this.xScale(d.date))
@@ -40,21 +41,17 @@ class LineChart implements D3Element {
       .datum(p => p)
       .attr('d', this.lineGenerator)
       .attr("stroke", (_,i) => LineChart.COLORS[i] )
-    
-    // this.data.points.forEach( points => {
-    //   this.line
-    //     .datum(points)
-    //     .attr('d', this.lineGenerator)
-    //     .attr("stroke", "steelblue")
 
-    //   this.svg.selectAll('circle')
-    //     .data(points)
-    //     .join('circle')
-        // .attr('r', this.POINT_RADIUS)
-        // .attr('cx', d => this.xScale(d.date))
-        // .attr('cy', d => this.yScale(d.value))
-        // .attr('fill', 'steelblue')
-    // })
+    this.circles.selectAll('g')
+      .data(this.data.points)
+      .join('g')
+      .attr('fill', (_,i) => LineChart.COLORS[i])
+      .selectAll('circle')
+      .data(d => d)
+      .join('circle')
+      .attr('cx', d => this.xScale(d.date))
+      .attr('cy', d => this.yScale(d.value))
+      .attr('r', 2.5)
 
     this.limitLines.selectAll('line')
       .data(this.data.contaminante.range)
@@ -68,9 +65,13 @@ class LineChart implements D3Element {
     this.xAxis
       .call(d3.axisBottom(this.xScale))
 
+    const yAxis = d3.axisLeft(this.yScale)
+    const yTicks = this.yScale.ticks()
+    if(yTicks[0] != Math.round(this.min)) {
+      yAxis.tickValues([this.min, ...yTicks])
+    }
     this.yAxis
-      .call(d3.axisLeft(this.yScale)
-      .tickValues([this.min, ...this.yScale.ticks()]))
+      .call(yAxis)
   }
 
   resize(width: number, height: number) {

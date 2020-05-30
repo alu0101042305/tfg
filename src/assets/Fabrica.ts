@@ -1,25 +1,25 @@
 import * as utm from 'utm'
 
 export interface Fabrica {
-  location: {
-    latitude: number,
-    longitude: number
-  }
+  x: number,
+  y: number,
   name: string,
   mainActivity: string
 }
 
-const Fabrica = (name: string, mainActivity: string, x: number, y: number) => ({
-  location: utm.toLatLon(x, y, 28, null, true),
-  name,
-  mainActivity
-})
+const Fabrica = (name: string, mainActivity: string, x: number, y: number) => {
+  const {longitude, latitude} = utm.toLatLon(x, y, 28, null, true)
+  return {
+    x: longitude,
+    y: latitude,
+    name,
+    mainActivity
+  }
+}
 
 const FabricaGrados = (name: string, mainActivity: string, x: number, y: number) => ({
-  location: {
-    latitude: x,
-    longitude: y
-  },
+  x,
+  y,
   name,
   mainActivity
 })

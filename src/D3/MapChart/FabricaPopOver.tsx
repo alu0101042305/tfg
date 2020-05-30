@@ -1,32 +1,17 @@
 import React from 'react'
-import MapChart from './MapChart';
+import MapChart from './MapChart.old';
 import { Popover, Box } from '@material-ui/core';
 import {Fabrica} from '../../assets/Fabrica'
 
 export default function FabricaPopOver(props: {
-  map: MapChart
+  fabrica: Fabrica,
+  anchor: Element
 }) {
-
-  const [anchorEl, setanchorEl] = React.useState(null);
-  const [factory, setFactory] = React.useState<Fabrica>({
-    name: '',
-    mainActivity: '',
-    location: {latitude:0, longitude:0}
-  })
-
-  props.map.onMouseEnterFabric = (fabrica: Fabrica, event: any) => {
-    setanchorEl(event.target)
-    setFactory(fabrica)
-  }
-
-  props.map.onMouseLeaveFabric = () => {
-    setanchorEl(null)
-  }
 
   return (
     <Popover
-      open={anchorEl != null}
-      anchorEl={anchorEl}
+      open={props.anchor != null}
+      anchorEl={props.anchor}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'center',
@@ -41,8 +26,8 @@ export default function FabricaPopOver(props: {
       }}
     >
       <Box px={1}>
-        <h4>{factory.name}</h4>
-        <h5>{factory.mainActivity}</h5>
+        <h4>{props.fabrica.name}</h4>
+        <h5>{props.fabrica.mainActivity}</h5>
       </Box>
     </Popover>
   )

@@ -22,11 +22,24 @@ class MapChart implements D3Element{
     .on('click', this.svgClick.bind(this))
     .call(this.zoom)
   factories = this.svg.append('g')
+  tmp = this.svg.append('g')
   rects = this.svg.append('g').selectAll('rect')
   transform = {k: 1, x: 0, y: 0}
   path2D: Path2D
   data: Data
   originalPoints: [number, number][]
+  nodes: any[]
+  forceSimulation = d3.forceSimulation([])
+    .force('collide', d3.forceCollide().radius(10).strength(0.5))
+    .on('tick', () => {
+      const tmp = this.rects
+        .data(this.nodes)
+      if(tmp.attr){
+        tmp.attr('transform', node => `translate(
+          ${node.x},
+          ${node.y})`)
+      }
+    })
   onMouseEnterFabric: (f: Fabrica, e: any) => void
   onMouseLeaveFabric: () => void
   
@@ -74,6 +87,13 @@ class MapChart implements D3Element{
     this.data.points.forEach((e, i) => {
       e.pos = this.projection([this.originalPoints[i][0], this.originalPoints[i][1]])
     });
+    this.nodes = this.data.points.map((e, i) => {
+      const [destX, destY] = this.projection([this.originalPoints[i][0], this.originalPoints[i][1]])
+      return {
+        destX, destY
+      }
+    })
+
     this.resizeCanvas()
     this.resizeSVG()
   }
@@ -82,6 +102,19 @@ class MapChart implements D3Element{
   setData(data: Data) {
     this.originalPoints = data.points.map(e => [e.pos[0], e.pos[1]])
     this.data = data
+    // const nodes = this.data.points.map(e => ({x: e.pos[0] + 100, y: e.pos[1] + 100}))
+    // d3.forceSimulation(nodes)
+    //   .force('collide', d3.forceCollide().radius(10).strength(0.1))
+    //   .on('tick', () => {
+    //     this.tmp.selectAll('circle')
+    //     .data(nodes)
+    //     .join('circle')
+    //     .attr('r', 10)
+    //     .attr('cx', d => d.x)
+    //     .attr('cy', d => d.y)
+    //     .attr('fill', 'red')
+    //   })
+    
     this.rects = this.rects
       .data(this.data.points)
       .join('g')
@@ -105,28 +138,39 @@ class MapChart implements D3Element{
   // "repinta" el svg (realmente utiliza la propiedad this.transform
   // para ajustar la posición de los cuadros)
   repaintSVG() {
-    this.rects
-      .attr('transform', (d: Point) => `translate(
-        ${d.pos[0] * this.transform.k + this.transform.x},
-        ${d.pos[1] * this.transform.k + this.transform.y})`)
-
-    const fabricas = Fabricas.map(e => ({
-      ...e,
-      pos: this.projection([e.location.longitude, e.location.latitude])
+    this.nodes = this.data.points.map((point, i) => ({
+      x: point.pos[0] * this.transform.k + this.transform.x,
+      y: point.pos[1] * this.transform.k + this.transform.y
     }))
-    this.factories.selectAll('image')
-      .data(fabricas)
-      .join('image')
-      .attr('href', 'img/factory.png')
-      .attr('width', FACTORY_WIDTH)
-      .attr('height', FACTORY_WIDTH)
-      .attr('x', d => d.pos[0] * this.transform.k + this.transform.x - FACTORY_WIDTH / 2)
-      .attr('y', d => d.pos[1] * this.transform.k + this.transform.y - FACTORY_WIDTH / 2)
-      .style('cursor', 'default')
-      .on('mouseenter', d => {
-        this.onMouseEnterFabric(d, d3.event)
+    d3.forceSimulation(this.nodes)
+      .force('collide', d3.forceCollide().radius(10).strength(0.5))
+      .on('tick', () => {
+        const tmp = this.rects
+          .data(this.nodes)
+        if(tmp.attr){
+          tmp.attr('transform', node => `translate(
+            ${node.x},
+            ${node.y})`)
+        }
       })
-      .on('mouseleave', this.onMouseLeaveFabric)
+
+    // const fabricas = Fabricas.map(e => ({
+    //   ...e,
+    //   pos: this.projection([e.location.longitude, e.location.latitude])
+    // }))
+    // this.factories.selectAll('image')
+    //   .data(fabricas)
+    //   .join('image')
+    //   .attr('href', 'img/factory.png')
+    //   .attr('width', FACTORY_WIDTH)
+    //   .attr('height', FACTORY_WIDTH)
+    //   .attr('x', d => d.pos[0] * this.transform.k + this.transform.x - FACTORY_WIDTH / 2)
+    //   .attr('y', d => d.pos[1] * this.transform.k + this.transform.y - FACTORY_WIDTH / 2)
+    //   .style('cursor', 'default')
+    //   .on('mouseenter', d => {
+    //     this.onMouseEnterFabric(d, d3.event)
+    //   })
+    //   .on('mouseleave', this.onMouseLeaveFabric)
   }
 
   // repinta el canvas

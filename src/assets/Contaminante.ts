@@ -19,3 +19,21 @@ export const Contaminantes: Contaminante[] = [
   Contaminante('PM\u2081\u2080', 'PM10', 10, [20, 35, 50, 100, 1200]),
   Contaminante('O\u2083', 'O3', 14, [80, 120, 180, 240, 600]),
 ]
+
+export const Colors = [
+  'rgb(0,255,250)',
+  'rgb(80,200,163)',
+  'rgb(255,255,0)',
+  'rgb(255,79,92)',
+  'rgb(192,0,0)'
+]
+
+export function getColor(value: number, contaminante: Contaminante): string {
+  const {range} = contaminante
+  for(var i = 0; i < range.length; ++i) {
+    if(value < range[i]){
+      return Colors[i]
+    }
+  }
+  return Colors[Colors.length - 1]
+}

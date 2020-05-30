@@ -1,10 +1,10 @@
 import React from 'react'
-import {Grid, Select, MenuItem, InputLabel, TextField, InputAdornment, Button, Chip, Box, Paper} from '@material-ui/core'
+import {Grid, Select, MenuItem, InputLabel, TextField, InputAdornment, Button, Chip, Box, Paper, Typography} from '@material-ui/core'
 import LineChart from './D3/LineChart/Component'
+import LineChartD3 from './D3/LineChart/LineChart'
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
 import {Contaminante, Contaminantes} from './assets/Contaminante'
 import SelectZonesDialog from './SelectZonesDialog'
-import LineChartD3 from './D3/LineChart/LineChart'
 
 function LineChartController() {
 
@@ -106,6 +106,17 @@ function LineChartController() {
               <Button color='primary' variant='outlined' onClick={setOpen.bind(null, true)}>
                 Selecciona las zonas
               </Button>
+            </Grid>
+
+            <Grid item>
+              {
+                zones.length == 0 ? (
+                  <Typography color='textSecondary' variant='caption'>
+                    Si no seleccionas ninguna zona se mostrarán los datos de todas,
+                    aplicando media aritmética cuando coincidan las fechas.
+                  </Typography>
+                ): ''
+              }
             </Grid>
 
             <Grid item>

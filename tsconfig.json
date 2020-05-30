@@ -24,6 +24,6 @@
     ]
   },
   "include": [
-    "src"
+    "src", "src/exp/LineChart2.tsx", "src/exp/LineChartLoader.tsx", "src/exp/hooks.ts"
   ]
 }
