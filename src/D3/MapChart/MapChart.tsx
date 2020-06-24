@@ -31,12 +31,6 @@ export default function MapChart(props: {
       })
   }, [])
 
-  function zoomTo() {
-    // this.svg.transition().duration(750).call(this.zoom.transform, d3.zoomIdentity
-    //   .translate(- d.pos[0] * k + this.width / 2, - d.pos[1] * k + this.height / 2)
-    //   .scale(k))
-  }
-
   return (
     <div className='mapChart' ref={ref}>
       <Canvas {...{

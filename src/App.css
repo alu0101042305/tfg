@@ -13,6 +13,16 @@ body {
   cursor: default;
 }
 
+table {
+  text-align: center;
+  color: black;
+  border: 2px solid black;
+}
+
+table th {
+  padding: 10px;
+}
+
 .mapChart{
   height: 100%;
   width: 100%;

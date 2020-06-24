@@ -1,9 +1,10 @@
 import React from 'react'
 import {Contaminantes, Contaminante} from './assets/Contaminante'
-import { Grid, Select, InputLabel, MenuItem, List, ListItem, ListItemText, ListItemSecondaryAction, Checkbox } from '@material-ui/core'
+import { Grid, Select, InputLabel, MenuItem, List, ListItem, ListItemText, ListItemSecondaryAction, Checkbox, Button } from '@material-ui/core'
 import {MapChartLoader} from './D3/MapChart/MapChartLoader';
 import {Visibility, VisibilityOff, GroupWork} from '@material-ui/icons';
 import GroupWorkOutlinedIcon from '@material-ui/icons/GroupWorkOutlined';
+import Leyenda from './Leyenda';
 
 export default function MapChartController() {
 
@@ -70,6 +71,9 @@ export default function MapChartController() {
             ))
           }
         </List>
+
+        <Leyenda />
+
       </Grid>
 
       <Grid item className='maxH grow'>

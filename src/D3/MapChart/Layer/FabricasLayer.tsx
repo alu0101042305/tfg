@@ -28,7 +28,6 @@ export const FabricasLayer = (props: {
         props.onMouseEnter(d, d3.event.target)
       })
       .on('mouseleave', props.onMouseLeave)
-    console.log(img.data())
   }
 
   return (
