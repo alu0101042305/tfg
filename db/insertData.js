@@ -98,6 +98,7 @@ function parse(file) {
     }).catch(err => {
       const mess = err.message
       console.log(mess ? mess : err)
+      console.log('Failed ' + sheetName)
     })
   })
 }
