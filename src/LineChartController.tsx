@@ -72,7 +72,7 @@ function LineChartController() {
             </Grid>
 
             <Grid item>
-              <InputLabel id="select-label">Contaminente</InputLabel>
+              <InputLabel id="select-label">Contaminante</InputLabel>
               <Select
                 labelId='select-label'
                 value={index}

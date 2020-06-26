@@ -26,7 +26,7 @@ export default function MapChartController() {
   return(
     <Grid container className="maxH">
       <Grid item xs={2}>
-        <InputLabel id="select-label">Contaminente</InputLabel>
+        <InputLabel id="select-label">Contaminante</InputLabel>
         <Select
           labelId='select-label'
           value={index}

@@ -13,6 +13,18 @@ export const NodesLayer = (props: {
 }) => {
 
   function node(g) {
+
+    // var circle = g.select('circle')
+    // if(circle.empty())
+    //   circle = g.append('circle')
+    // circle
+    //   .attr("stroke", "black")
+    //   .style("stroke-width", "1px")
+    //   .attr('fill', 'red')
+    //   .attr('r', 6)
+
+    // return;
+
     var circle = g.select('circle')
     if(circle.empty())
       circle = g.append('circle')

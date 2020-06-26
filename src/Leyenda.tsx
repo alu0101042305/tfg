@@ -4,19 +4,26 @@ import { Colors, Contaminantes } from './assets/Contaminante'
 
 const ICA = ['Muy bueno', 'Bueno', 'Regular', 'Malo', 'Muy malo']
 
+// Botón que abre la leyenda del mapa al ser pulsado
 export default function Leyenda() {
 
+  // Define el estado isOpen: true si el dialog está abierto
+  // false por defecto
   const [isOpen, setOpen] = React.useState(false)
 
+  // función que cambia el estado isOpen a true
   const open = () => setOpen(true)
+  // función que cambia el estado isOpen a false
   const close = () => setOpen(false)
 
   return (
     <React.Fragment>
+      {/** Al pulsar el botón se llama a la función open */}
       <Button variant='outlined' color='primary' onClick={open}>
         Leyenda
       </Button>
 
+      {/** El dialog solo se muestra si isOpen es true */}
       <Dialog open={isOpen} onClose={close}>
         <DialogTitle>Leyenda de colores</DialogTitle>
 
@@ -62,6 +69,5 @@ export default function Leyenda() {
       </Dialog>
 
     </React.Fragment>
-    
   )
 }
