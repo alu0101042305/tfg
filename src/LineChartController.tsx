@@ -76,7 +76,8 @@ function LineChartController() {
               <Select
                 labelId='select-label'
                 value={index}
-                onChange={onSelectChange}>
+                onChange={onSelectChange}
+                className={'contaminante'}>
                 {
                   Contaminantes.map((e: Contaminante, i) => (
                     <MenuItem value={i} key={i}>{e.display_name}</MenuItem>

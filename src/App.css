@@ -12,6 +12,9 @@ body {
   position: absolute;
   cursor: default;
 }
+.contaminante  *{
+  font-size: 24px !important;
+}
 
 table {
   text-align: center;

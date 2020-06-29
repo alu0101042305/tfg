@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppBar, Button, ButtonGroup, Grid, IconButton, Tab, Tabs} from '@material-ui/core'
+import {AppBar, Button, ButtonGroup, Grid, IconButton, Tab, Tabs, Tooltip} from '@material-ui/core'
 import GitHubIcon from '@material-ui/icons/GitHub';
 import MapIcon from '@material-ui/icons/Map';
 import TimelineIcon from '@material-ui/icons/Timeline';
@@ -34,8 +34,13 @@ function Bar(props) {
             scrollButtons="off"
             aria-label="scrollable prevent tabs example"
             >
-            <Tab icon={<MapIcon />} aria-label="phone" />
-            <Tab icon={<TimelineIcon />} aria-label="favorite" />
+            <Tooltip title="Mapa de Canarias" >
+              <Tab icon={<MapIcon />} aria-label="phone" />
+            </Tooltip>
+
+            <Tooltip title="Diagrama de líneas">
+              <Tab icon={<TimelineIcon />} aria-label="favorite" />
+            </Tooltip>
           </Tabs>
         </Grid>
 

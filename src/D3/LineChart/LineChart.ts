@@ -1,6 +1,7 @@
 import * as d3 from 'd3'
 import D3Element from '../D3Element'
 import {Data, Point} from './Types'
+import {Colors} from '../../assets/Contaminante'
 
 class LineChart implements D3Element {
 
@@ -60,7 +61,7 @@ class LineChart implements D3Element {
       .attr('x2', this.width)
       .attr('y1', d => this.yScale(d))
       .attr('y2', d => this.yScale(d))
-      .attr("stroke", (n, i) => n >= this.min ? this.colors[i] : null)
+      .attr("stroke", (n, i) => n >= this.min ? Colors[i] : null)
 
     this.xAxis
       .call(d3.axisBottom(this.xScale))
