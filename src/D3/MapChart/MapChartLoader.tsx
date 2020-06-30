@@ -27,7 +27,7 @@ function loadData(contaminante: Contaminante) {
 
 function loadGeo() {
   return new Promise(resolve => {
-    d3.json("/json/canary.json").then(json => {
+    d3.json("/json/grid.json").then(json => {
       resolve(json)
     })
   })

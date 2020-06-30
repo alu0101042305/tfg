@@ -28,8 +28,11 @@ const Canvas = React.memo((props: {
     ctx.resetTransform()
     ctx.translate(props.transform.x, props.transform.y)
     ctx.scale(props.transform.k, props.transform.k)
-    ctx.fillStyle = color
-    ctx.fill(path2D)
+    //ctx.fillStyle = color
+    ctx.strokeStyle = color
+    ctx.lineWidth = '0.05'
+    //ctx.fill(path2D)
+    ctx.stroke(path2D)
   })
 
   return (
