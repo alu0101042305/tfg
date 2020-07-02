@@ -160,7 +160,7 @@ export const Fabricas: Fabrica[] = [
   Fabrica('Complejo Ambiental de Tratamiento de Residuos Los Morenos',
   'Actividades generales de la Administración Local',
   228_208.15, 3_162_321.36),
-  Fabrica('Plata Producción de Biodiésel', 'Producción de biodiésel',
+  Fabrica('Planta Producción de Biodiésel', 'Producción de biodiésel',
   217_280, 3_169_959),
   Fabrica('Complejo Medioambiental de La Dehesa',
   'Actividades generales de la Administración pública',
