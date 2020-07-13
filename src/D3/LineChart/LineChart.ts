@@ -30,7 +30,7 @@ class LineChart implements D3Element {
   lineGenerator = d3.line<Point>()
     .x((d) => this.xScale(d.date))
     .y((d) => this.yScale(d.value))
-    .defined(d => d.value != undefined)
+    .defined(d => d.value != undefined || d.value < 0)
   limitLines = this.svg.append('g')
   colors = ['deepskyblue', 'mediumseagreen', 'coral', 'crimson', 'purple']
 

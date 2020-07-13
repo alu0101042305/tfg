@@ -1,6 +1,24 @@
 import React from 'react'
 import * as d3 from 'd3'
 
+var projection, path
+
+function recalculatePath(pro, geo){
+  console.log('Recalculating path')
+  projection = pro
+  path = new Path2D()
+  d3.geoPath()
+    .projection(projection)
+    .context(path as any)(geo)
+  return path
+}
+
+function getPath(p, geo) {
+  if(!projection || projection != p)
+    return recalculatePath(p, geo)
+  return path
+}
+
 const Canvas = React.memo((props: {
   transform,
   width: number,
@@ -15,11 +33,7 @@ const Canvas = React.memo((props: {
   var canvas
 
   const path2D = React.useMemo(() => {
-    const path = new Path2D()
-    d3.geoPath()
-      .projection(props.projection)
-      .context(path as any)(props.geo)
-    return path
+    return getPath(props.projection, props.geo)
   }, [props.projection, props.geo])
 
   React.useEffect(() => {

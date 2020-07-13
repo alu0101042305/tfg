@@ -2,20 +2,39 @@ import React, { ReactNode, ReactElement } from 'react'
 import * as hooks from '../hooks'
 import * as d3 from 'd3'
 import Canvas from './Canvas'
-import { FabricasLayer } from './Layer/FabricasLayer'
 
-export default function MapChart(props: {
+var projection, width, height
+
+function newProjection(w: number, h: number, geo){
+  console.log('New Projection')
+  width = w
+  height = h
+  projection = d3.geoMercator()
+    .fitSize([w, h], geo)
+  return projection
+}
+
+function getProjection(w, h, geo) {
+  if(!projection)
+    return newProjection(w, h, geo)
+  if(w == 0 || h == 0)
+    return projection
+  if(w != width || h != height)
+    return newProjection(w, h, geo)
+  return projection
+}
+
+const MapChart = React.memo((props: {
   geo,
   children?: ReactNode
-}) {
+}) => {
   var svg
   const ref = React.useRef(null)
   const [width, height] = hooks.useElementSize(ref)
   const [transform, setTransform] = React.useState({k: 1, x: 0, y: 0})
 
   const projection = React.useMemo(() => (
-    d3.geoMercator()
-      .fitSize([width, height], props.geo as any)
+    getProjection(width, height, props.geo)
   ), [width, height, props.geo])
 
   React.useEffect(() => {
@@ -46,4 +65,6 @@ export default function MapChart(props: {
       </svg>
     </div>
   )
-}
+})
+
+export default MapChart;

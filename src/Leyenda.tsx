@@ -29,36 +29,41 @@ export default function Leyenda() {
 
           <DialogContent>
             <DialogContentText>
-              <p>La siguiente tabla indica el Índice Nacional de Calidad del Aire de España
-              según la concentración en {'\u00B5/m\u2083'} de cada contaminante. En el mapa se muestran con los colores indicados.</p>
-              <table
+              La siguiente tabla indica el Índice Nacional de Calidad del Aire de España
+              según la concentración en {'\u00B5/m\u2083'} de cada contaminante. En el mapa se muestran con los colores indicados.
+            </DialogContentText>
+            <table
               cellSpacing={10}>
-                <tr>
-                  <th> </th>
-                  {
-                    ICA.map((e, i) => <th
-                      style={{
-                        backgroundColor: Colors[i],
-                      }} >
-                      {e}
-                    </th>)
-                  }
-                </tr>
+                <thead>
+                  <tr>
+                    <th> </th>
+                    {
+                      ICA.map((e, i) => <th
+                        key={i}
+                        style={{
+                          backgroundColor: Colors[i],
+                        }} >
+                        {e}
+                      </th>)
+                    }
+                  </tr>
+                </thead>
+                <tbody>
                 {
-                  Contaminantes.map(e => (
-                    <tr>
+                  Contaminantes.map((e, i) => (
+                    <tr key={i}>
                       <td>{e.display_name}</td>
                       <td> &gt; 0</td>
                       {
-                        e.range.slice(0, -1).map(e => (
-                          <td>&gt; {e + 1}</td>
+                        e.range.slice(0, -1).map((e, i) => (
+                          <td key={i}>&gt; {e + 1}</td>
                         ))
                       }
                     </tr>
                   ))
                 }
+                </tbody>
               </table>
-            </DialogContentText>
           </DialogContent>
 
           <DialogActions>
