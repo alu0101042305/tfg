@@ -4,7 +4,6 @@ import * as d3 from 'd3'
 var projection, path
 
 function recalculatePath(pro, geo){
-  console.log('Recalculating path')
   projection = pro
   path = new Path2D()
   d3.geoPath()

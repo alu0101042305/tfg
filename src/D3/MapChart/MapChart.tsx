@@ -6,7 +6,6 @@ import Canvas from './Canvas'
 var projection, width, height
 
 function newProjection(w: number, h: number, geo){
-  console.log('New Projection')
   width = w
   height = h
   projection = d3.geoMercator()

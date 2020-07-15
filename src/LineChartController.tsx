@@ -139,7 +139,9 @@ function LineChartController() {
       </Grid>
 
       <SelectZonesDialog setZones={setZones} open={open} handleClose={setOpen.bind(null, false)} 
-              contaminante={Contaminantes[index]}/>
+              contaminante={Contaminantes[index]}
+              startDate={startDate}
+              endDate={endDate} />
       
       <Grid item className='maxH grow'>
         <LineChart start_date={startDate} end_date={endDate} contaminante={Contaminantes[index]} 

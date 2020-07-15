@@ -6,14 +6,17 @@ export default function SelecZonesDialog(props: {
   open: boolean,
   handleClose(): void,
   setZones(zones: string[]): void,
-  contaminante: Contaminante
+  contaminante: Contaminante,
+  startDate: Date,
+  endDate: Date
 }) {
 
   const [zones, setZones] = React.useState<{checked: boolean, name: string}[]>([])
 
   const query = () => `
     show tag values from "${props.contaminante.db_name}"
-    with key in ("zone")`
+    with key in ("zone")
+    where time > '${props.startDate.toISOString()}' and time < '${props.endDate.toISOString()}'`
 
   function getZones() {
     fetch('/consult', {
@@ -32,7 +35,7 @@ export default function SelecZonesDialog(props: {
     props.setZones(zones.filter(e => e.checked).map(e => e.name))
   }
 
-  React.useEffect(getZones, [props.contaminante])
+  React.useEffect(getZones, [props.contaminante, props.startDate, props.endDate])
 
   return (
     <Dialog open={props.open} onClose={props.handleClose}>
