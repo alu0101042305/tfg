@@ -29,7 +29,7 @@
     "react-scripts": "3.4.1",
     "typescript": "^3.8.3",
     "utm": "^1.1.1",
-    "xlsx": "^0.16.0"
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
